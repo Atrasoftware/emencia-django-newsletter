@@ -13,7 +13,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.utils.encoding import force_unicode
 
-from tagging.fields import TagField
+from taggit.managers import TaggableManager
 from emencia.django.newsletter.managers import ContactManager
 from emencia.django.newsletter.settings import BASE_PATH
 from emencia.django.newsletter.settings import MAILER_HARD_LIMIT
@@ -114,7 +114,7 @@ class Contact(models.Model):
     subscriber = models.BooleanField(_('subscriber'), default=True)
     valid = models.BooleanField(_('valid email'), default=True)
     tester = models.BooleanField(_('contact tester'), default=False)
-    tags = TagField(_('tags'))
+    tags = TaggableManager()
 
     content_type = models.ForeignKey(ContentType, blank=True, null=True)
     object_id = models.PositiveIntegerField(blank=True, null=True)
