@@ -73,7 +73,7 @@ class ContactAdmin(admin.ModelAdmin):
     related_object_admin.allow_tags = True
     related_object_admin.short_description = _('Related object')
 
-    def tags(self, contact):
+    def tags_mod(self, contact):
         return ', '.join(contact.tags.names())
     tags_mod.allow_tags = True
     tags_mod.short_description = _('Tags')
