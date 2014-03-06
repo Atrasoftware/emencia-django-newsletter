@@ -65,7 +65,7 @@ Make sure to install these packages prior to installation :
  * Django >= 1.2
  * html2text
  * BeautifulSoup
- * django-tagging
+ * django-taggit
  * vobject
  * xlwt
  * xlrd
@@ -73,6 +73,8 @@ Make sure to install these packages prior to installation :
 The package below is optionnal but handy for rendering a webpage in your newsletter.
 
  * lxml
+
+Note: ``django-tagging`` has become ``django-taggit``.
 
 Getting the code
 ----------------
@@ -100,9 +102,10 @@ Then register **emencia.django.newsletter**, **admin**, **contenttypes** and **t
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.sessions',
-    'tagging',
+    'taggit',
     'emencia.django.newsletter',)
 
+Note: ``tagging`` has become ``taggit``.
 
 Urls
 ----
