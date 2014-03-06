@@ -29,10 +29,10 @@ contacts_imported = Signal(providing_args=['source', 'type'])
 
 class ContactAdmin(admin.ModelAdmin):
     date_hierarchy = 'creation_date'
-    list_display = ('email', 'first_name', 'last_name', 'tags', 'tester', 'subscriber',
+    list_display = ('email', 'first_name', 'last_name', 'tags_mod', 'tester', 'subscriber',
                     'valid', 'total_subscriptions', 'creation_date', 'related_object_admin')
     list_filter = ('subscriber', 'valid', 'tester', 'creation_date', 'modification_date')
-    search_fields = ('email', 'first_name', 'last_name', 'tags')
+    search_fields = ('email', 'first_name', 'last_name', 'tags_mod')
     fieldsets = ((None, {'fields': ('email', 'first_name', 'last_name')}),
                  (None, {'fields': ('tags',)}),
                  (_('Status'), {'fields': ('subscriber', 'valid', 'tester')}),
@@ -42,6 +42,7 @@ class ContactAdmin(admin.ModelAdmin):
     actions = ['create_mailinglist', 'export_vcard', 'export_excel']
     actions_on_top = False
     actions_on_bottom = True
+
 
     def queryset(self, request):
         queryset = super(ContactAdmin, self).queryset(request)
@@ -71,6 +72,11 @@ class ContactAdmin(admin.ModelAdmin):
         return _('No relative object')
     related_object_admin.allow_tags = True
     related_object_admin.short_description = _('Related object')
+
+    def tags(self, contact):
+        return ', '.join(contact.tags.names())
+    tags_mod.allow_tags = True
+    tags_mod.short_description = _('Tags')
 
     def total_subscriptions(self, contact):
         """Display user subscriptions to unsubscriptions"""
