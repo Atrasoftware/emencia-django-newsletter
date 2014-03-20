@@ -152,7 +152,7 @@ class Contact(models.Model):
             contact_name = '%s %s' % (self.last_name, self.first_name)
         else:
             contact_name = self.email
-        if self.tags:
+        if self.tags.all():
             return '%s | %s' % (contact_name, ', '.join(self.tags.names()))
         return contact_name
 
