@@ -153,7 +153,7 @@ class Contact(models.Model):
         else:
             contact_name = self.email
         if self.tags:
-            return '%s | %s' % (contact_name, self.tags)
+            return '%s | %s' % (contact_name, ', '.join(self.tags.names()))
         return contact_name
 
     class Meta:
