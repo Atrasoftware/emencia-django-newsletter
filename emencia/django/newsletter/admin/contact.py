@@ -143,7 +143,9 @@ class ContactAdmin(admin.ModelAdmin):
 
         context = {'title': _('Contact importation'),
                    'opts': opts,
-                   'root_path': self.admin_site.root_path,
+                   # https://github.com/django/django/commit/ff9a666753
+                   # 'root_path': self.admin_site.root_path,
+                   'root_path': reverse('admin:index'),
                    'app_label': opts.app_label}
 
         return render_to_response('newsletter/contact_import.html',
