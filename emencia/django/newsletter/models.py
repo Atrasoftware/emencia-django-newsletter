@@ -12,6 +12,7 @@ from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.utils.encoding import force_unicode
+from django.utils import timezone
 
 from taggit.managers import TaggableManager
 from emencia.django.newsletter.managers import ContactManager
@@ -78,7 +79,7 @@ class SMTPServer(models.Model):
         if not self.mails_hour:
             return MAILER_HARD_LIMIT
 
-        last_hour = datetime.now() - timedelta(hours=1)
+        last_hour = timezone.now() - timedelta(hours=1)
         sent_last_hour = ContactMailingStatus.objects.filter(
             models.Q(status=ContactMailingStatus.SENT) |
             models.Q(status=ContactMailingStatus.SENT_TEST),

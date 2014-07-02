@@ -31,6 +31,7 @@ from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
 from django.utils.encoding import smart_unicode
+from django.utils import timezone
 
 from emencia.django.newsletter.models import Newsletter
 from emencia.django.newsletter.models import ContactMailingStatus
@@ -156,6 +157,7 @@ class NewsLetterSender(object):
 
     def build_email_content(self, contact):
         """Generate the mail for a contact"""
+
         uidb36, token = tokenize(contact)
         context = Context({'contact': contact,
                            'domain': Site.objects.get_current().domain,
@@ -195,7 +197,7 @@ class NewsLetterSender(object):
         if self.test:
             return True
 
-        if self.newsletter.sending_date <= datetime.now() and \
+        if self.newsletter.sending_date <= timezone.now() and \
                (self.newsletter.status == Newsletter.WAITING or \
                 self.newsletter.status == Newsletter.SENDING):
             return True

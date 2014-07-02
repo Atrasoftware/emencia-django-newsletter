@@ -1,7 +1,7 @@
 """ExcelResponse for emencia.django.newsletter"""
 # Based on http://www.djangosnippets.org/snippets/1151/
 import datetime
-
+from django.utils import timezone
 from django.http import HttpResponse
 from django.db.models.query import QuerySet
 from django.db.models.query import ValuesQuerySet
@@ -12,6 +12,8 @@ class ExcelResponse(HttpResponse):
 
     def __init__(self, data, output_name='excel_data', headers=None,
                  force_csv=False, encoding='utf8'):
+        current_tz = timezone.get_current_timezone()
+
         valid_data = False
         if isinstance(data, ValuesQuerySet):
             data = list(data)
@@ -49,10 +51,13 @@ class ExcelResponse(HttpResponse):
                 for colx, value in enumerate(row):
                     if isinstance(value, datetime.datetime):
                         cell_style = styles['datetime']
+                        value = timezone.make_naive(value, current_tz)
                     elif isinstance(value, datetime.date):
                         cell_style = styles['date']
+                        value = timezone.make_naive(value, current_tz)
                     elif isinstance(value, datetime.time):
                         cell_style = styles['time']
+                        value = timezone.make_naive(value, current_tz)
                     else:
                         cell_style = styles['default']
                     sheet.write(rowx, colx, value, style=cell_style)

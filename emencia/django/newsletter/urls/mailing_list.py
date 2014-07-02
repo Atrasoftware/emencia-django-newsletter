@@ -1,6 +1,5 @@
 """Urls for the emencia.django.newsletter Mailing List"""
-from django.conf.urls import url
-from django.conf.urls import patterns
+from django.conf.urls import patterns, url
 
 from emencia.django.newsletter.forms import MailingListSubscriptionForm
 from emencia.django.newsletter.forms import AllMailingListSubscriptionForm

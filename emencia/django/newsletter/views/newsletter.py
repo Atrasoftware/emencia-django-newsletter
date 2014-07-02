@@ -46,6 +46,7 @@ def view_newsletter_preview(request, slug):
 def view_newsletter_contact(request, slug, uidb36, token):
     """Visualization of a newsletter by an user"""
     newsletter = get_object_or_404(Newsletter, slug=slug)
+
     contact = untokenize(uidb36, token)
     ContactMailingStatus.objects.create(newsletter=newsletter,
                                         contact=contact,
