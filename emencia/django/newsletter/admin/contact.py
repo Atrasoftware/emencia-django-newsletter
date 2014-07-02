@@ -143,7 +143,8 @@ class ContactAdmin(admin.ModelAdmin):
 
         context = {'title': _('Contact importation'),
                    'opts': opts,
-                   'root_path': self.admin_site.root_path,
+                   #'root_path': self.admin_site.root_path,
+                   'root_path': reverse('admin:index'),
                    'app_label': opts.app_label}
 
         return render_to_response('newsletter/contact_import.html',
@@ -155,8 +156,8 @@ class ContactAdmin(admin.ModelAdmin):
                         self.list_display_links, self.list_filter,
                         self.date_hierarchy, self.search_fields,
                         self.list_select_related, self.list_per_page,
-                        self.list_editable, self)
-        return cl.get_query_set()
+                        self.list_max_show_all, self.list_editable, self)
+        return cl.get_query_set(request)
 
     def creation_mailinglist(self, request):
         """Create a mailing list form the filtered contacts"""
